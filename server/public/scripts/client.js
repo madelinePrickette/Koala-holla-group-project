@@ -38,3 +38,15 @@ function saveKoala( newKoala ){
 
  
 }
+
+function deleteKoala(){
+  let koalaIdToDelete = $(this).closest('tr').data('id');
+  $.ajax({
+    method: 'DELETE',
+    url: `/books/${koalaIdToDelete}`
+  }).then(function(response) {
+    refreshBooks();
+  }).catch(function(error) {
+    console.log(error);
+  })
+}

@@ -35,3 +35,18 @@ function saveKoala(newKoala) {
   console.log('in saveKoala', newKoala);
   // ajax call to server to POST koalas
 }
+
+function koalaReadyForTransfer() {
+  console.log('Koala transfer (PUT route) ready!');
+  let koalaIdToUpdate = $(this).closest('tr').data('id');
+  $.ajax({
+    method: 'PUT',
+    url: `/koalas/${koalaIdToUpdate}`,
+  })
+    .then(function (response) {
+      getKoalas();
+    })
+    .catch(function (error) {
+      console.log('something wrong with PUT route:', error);
+    });
+}

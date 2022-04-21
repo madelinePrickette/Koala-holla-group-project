@@ -32,10 +32,21 @@ module.exports = pool;
 // PUT
 
 koalaRouter.put('/:koalaId', (req, res) => {
-    let sqlQuery = `
+  let sqlQuery = `
         UPDATE "koalas"
-    `
-})
+            SET "transferStatus"=$1
+            WHERE "id"=$2;
+    `;
+  let sqlValues = [true, req.params.koalaId];
+  pool
+    .query(sqlQuery, sqlValues)
+    .then((dbResult) => {
+      res.sendStatus(200);
+    })
+    .catch((dbError) => {
+      console.log('error in PUT /koalas db request:', dbError);
+    });
+});
 
 // DELETE
 

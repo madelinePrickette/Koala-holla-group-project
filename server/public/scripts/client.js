@@ -69,4 +69,4 @@ function deleteKoala(){
   }).catch(function(error) {
     console.log(error);
   })
-}
+}}

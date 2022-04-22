@@ -15,12 +15,14 @@ function setupClickListeners() {
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      readyForTransfer: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val(),
     };
+    $(':input').val('');
+    console.log(koalaToSend);
     // call saveKoala with the new obejct
     saveKoala(koalaToSend);
   });
@@ -31,42 +33,47 @@ function getKoalas() {
   // ajax call to server to get koalas
 } // end getKoalas
 
-function saveKoala( newKoala ){
-  console.log( 'in saveKoala', newKoala );
+function saveKoala(newKoala) {
+  console.log('in saveKoala', newKoala);
 
   // ajax call to server to get koalas
- $.ajax({
-   method: 'GET',
-   url: '/koalas'
- }).then((response) => {
-    console.log('response', response);
- }).catch((error) => {
-   console.log('error', error)
- })
-
-function koalaReadyForTransfer() {
-  console.log('Koala transfer (PUT route) ready!');
-  let koalaIdToUpdate = $(this).closest('tr').data('id');
   $.ajax({
-    method: 'PUT',
-    url: `/koalas/${koalaIdToUpdate}`,
+    method: 'GET',
+    url: '/koalas',
   })
-    .then(function (response) {
-      getKoalas();
+    .then((response) => {
+      console.log('response', response);
     })
-    .catch(function (error) {
-      console.log('something wrong with PUT route:', error);
+    .catch((error) => {
+      console.log('error', error);
     });
-}
 
-function deleteKoala(){
-  let koalaIdToDelete = $(this).closest('tr').data('id');
-  $.ajax({
-    method: 'DELETE',
-    url: `/koalas/${koalaIdToDelete}`
-  }).then(function(response) {
-    refreshBooks(); // REPLACE THIS WITH THE REFESH KOALAS FUNCTION 
-  }).catch(function(error) {
-    console.log(error);
-  })
-}}
+  function koalaReadyForTransfer() {
+    console.log('Koala transfer (PUT route) ready!');
+    let koalaIdToUpdate = $(this).closest('tr').data('id');
+    $.ajax({
+      method: 'PUT',
+      url: `/koalas/${koalaIdToUpdate}`,
+    })
+      .then(function (response) {
+        getKoalas();
+      })
+      .catch(function (error) {
+        console.log('something wrong with PUT route:', error);
+      });
+  }
+
+  function deleteKoala() {
+    let koalaIdToDelete = $(this).closest('tr').data('id');
+    $.ajax({
+      method: 'DELETE',
+      url: `/koalas/${koalaIdToDelete}`,
+    })
+      .then(function (response) {
+        refreshBooks(); // REPLACE THIS WITH THE REFESH KOALAS FUNCTION
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+}

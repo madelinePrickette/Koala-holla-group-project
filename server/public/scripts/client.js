@@ -33,6 +33,7 @@ function getKoalas() {
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
+
   // ajax call to server to get koalas
  $.ajax({
    method: 'GET',
@@ -56,5 +57,16 @@ function koalaReadyForTransfer() {
     .catch(function (error) {
       console.log('something wrong with PUT route:', error);
     });
+}
 
+function deleteKoala(){
+  let koalaIdToDelete = $(this).closest('tr').data('id');
+  $.ajax({
+    method: 'DELETE',
+    url: `/koalas/${koalaIdToDelete}`
+  }).then(function(response) {
+    refreshBooks(); // REPLACE THIS WITH THE REFESH KOALAS FUNCTION 
+  }).catch(function(error) {
+    console.log(error);
+  })
 }

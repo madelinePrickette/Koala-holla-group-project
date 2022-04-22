@@ -49,7 +49,7 @@ koalaRouter.put('/:koalaId', (req, res) => {
 });
 
 // DELETE
-router.delete('/:koalaId', (req, res) => {
+koalaRouter.delete('/:koalaId', (req, res) => {
     let koalaToDelete = req.params.koalaId;
     let sqlQuery = `
       DELETE FROM "koalas"

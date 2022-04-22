@@ -31,10 +31,17 @@ function getKoalas() {
   // ajax call to server to get koalas
 } // end getKoalas
 
-function saveKoala(newKoala) {
-  console.log('in saveKoala', newKoala);
-  // ajax call to server to POST koalas
-}
+function saveKoala( newKoala ){
+  console.log( 'in saveKoala', newKoala );
+  // ajax call to server to get koalas
+ $.ajax({
+   method: 'GET',
+   url: '/koalas'
+ }).then((response) => {
+    console.log('response', response);
+ }).catch((error) => {
+   console.log('error', error)
+ })
 
 function koalaReadyForTransfer() {
   console.log('Koala transfer (PUT route) ready!');
@@ -49,4 +56,5 @@ function koalaReadyForTransfer() {
     .catch(function (error) {
       console.log('something wrong with PUT route:', error);
     });
+
 }
